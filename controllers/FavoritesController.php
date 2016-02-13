@@ -11,6 +11,7 @@ namespace lo\modules\ucp\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 
 class FavoritesController extends Controller
@@ -25,6 +26,20 @@ class FavoritesController extends Controller
      * @var int количество новостей на странице
      */
     public $pageSize = 20;
+
+    /** @inheritdoc */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['index'], 'roles' => ['@']],
+                    ['allow' => true, 'actions' => ['show'], 'roles' => ['?', '@']],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex(){
 
