@@ -1,0 +1,33 @@
+{
+    "name": "loveorigami/lo-module-ucp",
+    "description": "Ucp module for Lo-CMS",
+    "version": "1.0",
+    "type": "yii2-extension",
+    "keywords": [
+        "yii2",
+        "ucp",
+        "module"
+    ],
+    "homepage": "https://bitbucket.org/loveorigami/lo-module-ucp",
+    "time": "2016-02-13",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrey Lukyanov",
+            "email": "loveorigami@mail.ru",
+            "homepage": "http://loveorigami.info",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://bitbucket.org/loveorigami/lo-module-ucp"
+    },
+    "require": {
+        "yiisoft/yii2": "~2"
+    },
+    "autoload": {
+        "psr-4": {
+            "lo\\modules\\ucp\\": ""
+        }
+    }
+}
