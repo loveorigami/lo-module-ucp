@@ -13,6 +13,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 
+use lo\modules\love\models\AphorismSearch;
+use lo\core\db\ActiveRecord;
+
 
 class FavoritesController extends Controller
 {
@@ -20,7 +23,7 @@ class FavoritesController extends Controller
     /**
      * @var array сортировка
      */
-    public $orderBy = ["id" => SORT_DESC];
+    public $orderBy = ["date" => SORT_DESC];
 
     /**
      * @var int количество новостей на странице
@@ -34,24 +37,32 @@ class FavoritesController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index'], 'roles' => ['@']],
-                    ['allow' => true, 'actions' => ['show'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['aphorism', 'index'], 'roles' => ['@']],
+                    //['allow' => true, 'actions' => ['show'], 'roles' => ['?', '@']],
                 ],
             ],
         ];
     }
 
-    public function actionIndex(){
-
+    public function actionIndex()
+    {
         return $this->render('index');
     }
 
+    public function actionAphorism()
+    {
+        $searchModel = Yii::createObject(['class' => AphorismSearch::className(), 'scenario' => ActiveRecord::SCENARIO_SEARCH]);
+        $filter = $searchModel->load(Yii::$app->request->queryParams);
 
-    public function actionView($slug){
-        {
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['ucp' => true]);
+        $dataProvider->getSort()->defaultOrder = $this->orderBy;
+        $dataProvider->getPagination()->pageSize = $this->pageSize;
 
-            return $this->render('view', compact('model'));
+        $res["html"] = $this->renderPartial('@lo/modules/love/views/aphorism/_grid', ["dataProvider" => $dataProvider]);
 
-        }
+        return $this->render('aphorism', compact('res', 'searchModel'));
     }
+
+
+
 } 
