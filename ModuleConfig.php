@@ -1,6 +1,6 @@
 <?php
 
-namespace lo\modules\ucp\modules\admin;
+namespace lo\modules\ucp;
 
 use Zelenin\Zend\Expressive\Config\Provider\ModuleConfigProvider;
 use Zelenin\Zend\Expressive\Config\Provider\PhpProvider;
