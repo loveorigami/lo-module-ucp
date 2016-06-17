@@ -35,7 +35,7 @@ class FavoritesController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     ['allow' => true, 'actions' => ['aphorism', 'index'], 'roles' => ['@']],
                     //['allow' => true, 'actions' => ['show'], 'roles' => ['?', '@']],
@@ -51,7 +51,7 @@ class FavoritesController extends Controller
 
     public function actionAphorism()
     {
-        $searchModel = Yii::createObject(['class' => AphorismSearch::className(), 'scenario' => ActiveRecord::SCENARIO_SEARCH]);
+        $searchModel = Yii::createObject(['class' => AphorismSearch::class, 'scenario' => ActiveRecord::SCENARIO_SEARCH]);
         $filter = $searchModel->load(Yii::$app->request->queryParams);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['ucp' => true]);
